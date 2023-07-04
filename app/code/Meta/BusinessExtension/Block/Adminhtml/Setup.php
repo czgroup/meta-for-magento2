@@ -23,6 +23,7 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Backend\Block\Template;
 use Magento\Store\Api\StoreRepositoryInterface;
 use Magento\Store\Model\ResourceModel\Website\CollectionFactory as WebsiteCollectionFactory;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * @api
@@ -93,6 +94,16 @@ class Setup extends Template
     }
 
     /**
+     * Get access token
+     *
+     * @return mixed
+     */
+    public function fetchAccessToken($storeId)
+    {
+        return $this->systemConfig->getAccessToken($storeId, ScopeInterface::SCOPE_STORES);
+    }
+
+    /**
      * Get profiles ajax route
      *
      * @return mixed
@@ -121,6 +132,17 @@ class Setup extends Template
     public function fetchPixelId($storeId)
     {
         return $this->systemConfig->getPixelId($storeId);
+    }
+
+    /**
+     * Fetch catalog id
+     *
+     * @param int $storeId
+     * @return string|null
+     */
+    public function fetchCatalogId($storeId)
+    {
+        return $this->systemConfig->getCatalogId($storeId);
     }
 
     /**

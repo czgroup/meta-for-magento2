@@ -13,6 +13,8 @@
                 value="<?= $escaper->escapeHtmlAttr($store['store_id']) ?>"
                 data-installed="<?= $escaper->escapeHtmlAttr($block->isFBEInstalled($store['store_id'])) ?>"
                 data-pixel-id="<?= $escaper->escapeHtmlAttr($block->fetchPixelId($store['store_id'])) ?>"
+                data-catalog-id="<?= $escaper->escapeHtmlAttr($block->fetchCatalogId($store['store_id'])) ?>"
+                data-access-token="<?= $escaper->escapeHtmlAttr($block->fetchAccessToken($store['store_id'])) ?>"
                 data-system-user-name=
                     "<?= $escaper->escapeHtmlAttr($block->getExternalBusinessId($store['store_id'])) ?>"
                 data-external-business-id=
