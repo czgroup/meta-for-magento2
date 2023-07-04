@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -31,32 +34,32 @@ class SendToFacebook extends AbstractModifier
     /**
      * @var LocatorInterface
      */
-    protected $locator;
+    private $locator;
 
     /**
      * @var ScopeConfigInterface
      */
-    protected $scopeConfig;
+    private $scopeConfig;
 
     /**
      * @var ArrayManager
      */
-    protected $arrayManager;
+    private $arrayManager;
 
     /**
      * @var BlockFactory
      */
-    protected $blockFactory;
+    private $blockFactory;
 
     /**
      * @var Request
      */
-    protected $request;
+    private $request;
 
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * @param LocatorInterface $locator
@@ -108,7 +111,7 @@ class SendToFacebook extends AbstractModifier
      * @param array $meta
      * @return array
      */
-    protected function addFacebookProductDiagnostics(array $meta)
+    private function addFacebookProductDiagnostics(array $meta)
     {
         $path = $this->arrayManager->findPath('send_to_facebook', $meta);
         if ($path) {

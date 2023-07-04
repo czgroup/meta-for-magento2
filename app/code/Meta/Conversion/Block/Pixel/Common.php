@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -31,27 +34,27 @@ class Common extends \Magento\Framework\View\Element\Template
     /**
      * @var FBEHelper
      */
-    protected $fbeHelper;
+    private $fbeHelper;
 
     /**
      * @var MagentoDataHelper
      */
-    protected $magentoDataHelper;
+    private $magentoDataHelper;
 
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * @var Escaper
      */
-    protected $escaper;
+    private $escaper;
 
     /**
      * @var CheckoutSession
      */
-    protected $checkoutSession;
+    private $checkoutSession;
 
     /**
      * Common constructor

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -27,7 +30,7 @@ class ProcessCategoryAfterSaveEventObserver implements ObserverInterface
     /**
      * @var FBEHelper
      */
-    protected $_fbeHelper;
+    private $_fbeHelper;
 
     /**
      * Constructor

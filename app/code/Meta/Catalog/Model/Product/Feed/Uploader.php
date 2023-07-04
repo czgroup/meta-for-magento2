@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -28,17 +31,17 @@ class Uploader
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * @var MethodBatchApi
      */
-    protected $methodBatchApi;
+    private $methodBatchApi;
 
     /**
      * @var MethodFeedApi
      */
-    protected $methodFeedApi;
+    private $methodFeedApi;
 
     /**
      * @param SystemConfig $systemConfig

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -52,7 +55,7 @@ class Identifier
      * @param ProductInterface $product
      * @return bool|int|string
      */
-    protected function getProductIdentifier(ProductInterface $product)
+    private function getProductIdentifier(ProductInterface $product)
     {
         if ($this->identifierAttr === IdentifierConfig::PRODUCT_IDENTIFIER_SKU) {
             return $product->getSku();

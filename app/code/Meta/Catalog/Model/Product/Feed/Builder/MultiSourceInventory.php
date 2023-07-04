@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -43,7 +46,7 @@ class MultiSourceInventory implements InventoryInterface
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * @var StockByWebsiteIdResolverInterface
@@ -124,9 +127,8 @@ class MultiSourceInventory implements InventoryInterface
      */
     public function initInventoryForProduct(Product $product): MultiSourceInventory
     {
-        $websiteId = $product->getStore()->getWebsiteId();
+        $websiteId = (int) $product->getStore()->getWebsiteId();
         $stockId = $this->stockByWebsiteIdResolver->execute($websiteId)->getStockId();
-
         $this->product = $product;
         $this->stockStatus = $this->isInStock($product, $stockId);
         $this->stockQty = $this->getStockQty($product, $stockId);
@@ -154,7 +156,7 @@ class MultiSourceInventory implements InventoryInterface
             return 0;
         }
         $outOfStockThreshold = $this->systemConfig->getOutOfStockThreshold($this->product->getStoreId());
-        $quantityAvailableForCatalog = $this->stockQty - $outOfStockThreshold;
+        $quantityAvailableForCatalog = (int) $this->stockQty - $outOfStockThreshold;
         return $quantityAvailableForCatalog > 0 ? $quantityAvailableForCatalog : 0;
     }
 }

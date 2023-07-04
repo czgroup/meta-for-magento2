@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -27,12 +30,12 @@ class OrderGet
     /**
      * @var OrderExtensionFactory
      */
-    protected $orderExtensionFactory;
+    private $orderExtensionFactory;
 
     /**
      * @var FacebookOrderInterfaceFactory
      */
-    protected $facebookOrderFactory;
+    private $facebookOrderFactory;
 
     /**
      * @param OrderExtensionFactory $orderExtensionFactory

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -27,7 +30,7 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
   /**
    * @var PageFactory
    */
-    protected $resultPageFactory;
+    private $resultPageFactory;
 
   /**
    * Constructor

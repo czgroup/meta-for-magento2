@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -30,7 +33,7 @@ class Tools
     /**
      * @var PriceCurrencyInterface
      */
-    protected $priceCurrency;
+    private $priceCurrency;
 
     /**
      * @var Escaper

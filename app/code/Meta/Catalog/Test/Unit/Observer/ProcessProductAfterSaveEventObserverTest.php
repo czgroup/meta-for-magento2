@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -121,12 +124,15 @@ class ProcessProductAfterSaveEventObserverTest extends TestCase
 
         $productMock->method('getSendToFacebook')->willReturn(1);
 
+        $this->graphApiAdapterMock->method('setDebugMode')->willReturn($this->graphApiAdapterMock);
+
         $this->systemConfigMock->method('getCatalogId')->willReturn("12345");
 
         $this->batchApiMock->expects($this->once())
             ->method('buildRequestForIndividualProduct')
             ->with($productMock);
         $this->graphApiAdapterMock->expects($this->atLeastOnce())->method('catalogBatchRequest');
+        $this->graphApiAdapterMock->method('setDebugMode')->willReturn($this->graphApiAdapterMock);
         $this->processProductAfterSaveEventObserver->execute($observerMock);
     }
 }

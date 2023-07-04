@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -58,7 +61,7 @@ class UploadProductFeed
      * @return $this
      * @throws LocalizedException
      */
-    protected function uploadForStore($storeId)
+    private function uploadForStore($storeId)
     {
         if ($this->isFeedUploadEnabled($storeId)) {
             $this->uploader->uploadFullCatalog($storeId);

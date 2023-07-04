@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -32,17 +35,17 @@ class AddToCart implements ObserverInterface
     /**
      * @var FBEHelper
      */
-    protected $fbeHelper;
+    private $fbeHelper;
 
     /**
      * @var MagentoDataHelper
      */
-    protected $magentoDataHelper;
+    private $magentoDataHelper;
 
     /**
      * @var ServerSideHelper
      */
-    protected $serverSideHelper;
+    private $serverSideHelper;
 
     /**
      * @var ServerEventFactory
@@ -52,7 +55,7 @@ class AddToCart implements ObserverInterface
     /**
      * @var RequestInterface
      */
-    protected $request;
+    private $request;
 
     /**
      * @var Escaper

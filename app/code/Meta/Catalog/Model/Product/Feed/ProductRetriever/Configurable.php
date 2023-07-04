@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -32,7 +35,7 @@ class Configurable implements ProductRetrieverInterface
     /**
      * @var int
      */
-    protected $storeId;
+    private $storeId;
 
     /**
      * @var FBEHelper

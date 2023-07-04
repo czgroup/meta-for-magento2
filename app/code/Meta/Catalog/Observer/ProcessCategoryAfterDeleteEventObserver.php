@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -28,11 +31,11 @@ class ProcessCategoryAfterDeleteEventObserver implements ObserverInterface
     /**
      * @var FBEHelper
      */
-    protected $fbeHelper;
+    private $fbeHelper;
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * Constructor

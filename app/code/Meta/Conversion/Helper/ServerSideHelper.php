@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -33,22 +36,22 @@ class ServerSideHelper
     /**
      * @var FBEHelper
      */
-    protected $fbeHelper;
+    private $fbeHelper;
 
     /**
      * @var AAMFieldsExtractorHelper
      */
-    protected $aamFieldsExtractorHelper;
+    private $aamFieldsExtractorHelper;
 
     /**
      * @var array
      */
-    protected $trackedEvents = [];
+    private $trackedEvents = [];
 
     /**
      * @var SystemConfig
      */
-    protected $systemConfig;
+    private $systemConfig;
 
     /**
      * Constructor

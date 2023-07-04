@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -36,12 +39,22 @@ class InitiateCheckout extends Common
     /**
      * @var PricingHelper
      */
-    protected $pricingHelper;
+    private $pricingHelper;
 
     /**
      * @var Quote
      */
     private $quote;
+
+    /**
+     * @var MagentoDataHelper
+     */
+    private $magentoDataHelper;
+
+    /**
+     * @var CheckoutSession
+     */
+    private $checkoutSession;
 
     /**
      * Constructor
@@ -75,6 +88,8 @@ class InitiateCheckout extends Common
             $data
         );
         $this->pricingHelper = $pricingHelper;
+        $this->magentoDataHelper = $magentoDataHelper;
+        $this->checkoutSession = $checkoutSession;
     }
 
     /**

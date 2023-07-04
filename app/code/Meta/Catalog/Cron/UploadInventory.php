@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -59,7 +62,7 @@ class UploadInventory
      * @return $this
      * @throws LocalizedException
      */
-    protected function uploadForStore($storeId)
+    private function uploadForStore($storeId)
     {
         if ($this->isUploadEnabled($storeId)) {
             $this->uploader->uploadInventory($storeId);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -97,6 +100,7 @@ class ProcessProductAfterDeleteEventObserverTest extends TestCase
         $this->_eventObserverMock = $this->createMock(Observer::class);
         $this->_eventObserverMock->expects($this->once())->method('getEvent')->will($this->returnValue($event));
         $this->_graphApi = $this->createMock(GraphAPIAdapter::class);
+        $this->_graphApi->method('setDebugMode')->willReturn($this->_graphApi);
         $this->identifier = $this->createMock(Identifier::class);
         $this->messageManager = $this->createMock(ManagerInterface::class);
         $this->processProductAfterDeleteEventObserver = new ProcessProductAfterDeleteEventObserver(
@@ -112,6 +116,8 @@ class ProcessProductAfterDeleteEventObserverTest extends TestCase
     {
         $this->systemConfig->method('isActiveExtension')->willReturn(true);
         $this->systemConfig->method('isActiveIncrementalProductUpdates')->willReturn(true);
+        $this->systemConfig->method('getCatalogId')->willReturn("12345");
+        $this->_graphApi->method('setDebugMode')->willReturn($this->_graphApi);
         $this->_graphApi->expects($this->atLeastOnce())->method('catalogBatchRequest');
         $this->systemConfig->method('isActiveExtension')->willReturn(true);
         $this->processProductAfterDeleteEventObserver->execute($this->_eventObserverMock);

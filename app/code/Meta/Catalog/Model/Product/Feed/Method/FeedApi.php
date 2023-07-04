@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -18,6 +21,7 @@
 namespace Meta\Catalog\Model\Product\Feed\Method;
 
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Meta\BusinessExtension\Helper\GraphAPIAdapter;
 use Meta\BusinessExtension\Model\System\Config as SystemConfig;
 use Meta\Catalog\Model\Config\Source\FeedUploadMethod;
@@ -30,6 +34,11 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\File\WriteInterface;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class Use for Feed Api
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class FeedApi
 {
     private const FEED_FILE_NAME = 'facebook_products%s.csv';
@@ -96,9 +105,10 @@ class FeedApi
     }
 
     /**
-     * Get FB Feed Id
+     * Get FB Feed ID
      *
-     * @return string|false
+     * @return mixed|null
+     * @throws GuzzleException
      */
     private function getFbFeedId()
     {
@@ -109,9 +119,7 @@ class FeedApi
 
         // make sure feed exists on meta side, not deleted
         if ($feedId) {
-            $magentoFeeds = array_filter($catalogFeeds, function ($a) use ($feedId) {
-                return $a['id'] === $feedId;
-            });
+            $magentoFeeds = array_filter($catalogFeeds, fn($a) => $a['id'] === $feedId);
             // in case feed id is not found in meta catalog, feed id on
             // magento will be flushed and new feed will be created in Meta Catalog
             if (empty($magentoFeeds)) {
@@ -120,16 +128,8 @@ class FeedApi
         }
 
         if (!$feedId) {
-            $magentoFeeds = array_filter($catalogFeeds, function ($a) use ($feedName) {
-                return $a['name'] === $feedName;
-            });
-            if (!empty($magentoFeeds)) {
-                $feedId = $magentoFeeds[array_key_first($magentoFeeds)]['id'];
-            }
-        }
-
-        if (!$feedId) {
             $feedId = $this->graphApiAdapter->createEmptyFeed($catalogId, $feedName);
+
             $maxAttempts = 5;
             $attempts = 0;
             do {
@@ -140,12 +140,14 @@ class FeedApi
                 $attempts++;
                 usleep(2000000);
             } while ($attempts < $maxAttempts);
-        }
 
-        if ($feedId && $this->systemConfig->getFeedId($this->storeId) != $feedId) {
-            $this->systemConfig
-                ->saveConfig(SystemConfig::XML_PATH_FACEBOOK_BUSINESS_EXTENSION_FEED_ID, $feedId, $this->storeId)
-                ->cleanCache();
+            if ($feedId) {
+                $this->systemConfig->saveConfig(
+                    SystemConfig::XML_PATH_FACEBOOK_BUSINESS_EXTENSION_FEED_ID,
+                    $feedId,
+                    $this->storeId
+                )->cleanCache();
+            }
         }
         return $feedId;
     }
@@ -235,7 +237,6 @@ class FeedApi
         $this->builder->setStoreId($this->storeId);
         $this->graphApiAdapter->setDebugMode($this->systemConfig->isDebugMode($storeId))
             ->setAccessToken($this->systemConfig->getAccessToken($storeId));
-
         try {
             $feedId = $this->getFbFeedId();
             if (!$feedId) {
